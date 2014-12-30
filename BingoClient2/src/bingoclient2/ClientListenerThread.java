@@ -66,6 +66,12 @@ public class ClientListenerThread extends Thread{
                     Whisper w = (Whisper) o;
                     lobbyFrame.addChat("(Whisper)" + w.sender + ": " + w.message);
                 }
+                
+                else if (o.getClass() == CreateRoom.class) {
+                    CreateRoom cr = (CreateRoom) o;
+                    roomListModel.addElement(cr.id);
+                    lobbyFrame.setRoomListModel(roomListModel);
+                }
             }
         }
         catch (Exception ex) {

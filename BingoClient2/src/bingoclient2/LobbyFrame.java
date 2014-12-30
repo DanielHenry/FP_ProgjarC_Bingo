@@ -80,11 +80,6 @@ public class LobbyFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jListPlayer);
 
         jListRoom.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jListRoom.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Room 1", "Room 2", "Room 3", "Room 4", "Room 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jListRoom.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListRoom.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
         jScrollPane2.setViewportView(jListRoom);
@@ -227,8 +222,8 @@ public class LobbyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonJoinRoomActionPerformed
 
     private void jButtonCreateRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateRoomActionPerformed
-        // TODO add your handling code here:
-        
+        CreateRoomF crf = new CreateRoomF(this);
+        crf.setVisible(true);
     }//GEN-LAST:event_jButtonCreateRoomActionPerformed
 
     private void jListPlayerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListPlayerMouseClicked

@@ -9,4 +9,8 @@ public class Room {
     public int maxPlayer;
     public boolean normalMode;
     public int bingoSize;
+    
+    public Room() {
+        playerStringList = new PlayerList();
+    }
 }

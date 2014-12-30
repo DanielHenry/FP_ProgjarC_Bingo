@@ -172,6 +172,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         /* Create and display the form */
+        ClientGlobals.activeRoomID = null;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginFrame().setVisible(true);

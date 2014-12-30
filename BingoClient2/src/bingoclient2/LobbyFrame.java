@@ -226,7 +226,14 @@ public class LobbyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jListPlayerMousePressed
 
     private void jButtonJoinRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJoinRoomActionPerformed
-        // TODO add your handling code here:
+        JoinRoom jr = new JoinRoom(jListRoom.getSelectedValue().toString());
+        try {
+            ClientGlobals.os.writeObject(jr);
+            ClientGlobals.os.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(LobbyFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ClientGlobals.activeRoomID = jListRoom.getSelectedValue().toString();
     }//GEN-LAST:event_jButtonJoinRoomActionPerformed
 
     private void jButtonCreateRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateRoomActionPerformed
@@ -278,7 +285,7 @@ public class LobbyFrame extends javax.swing.JFrame {
                 Logger.getLogger(LobbyFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        jScrollPane3.getViewport().setViewPosition(new Point(0, (jTextAreaChat.getLineCount()+1)*12));
+        jScrollPane3.getViewport().setViewPosition(new Point(0, (jTextAreaChat.getLineCount()+1)*80));
         jTextFieldChat.setText(null);
     }//GEN-LAST:event_jButtonSendChatActionPerformed
 

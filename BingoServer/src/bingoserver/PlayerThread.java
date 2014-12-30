@@ -99,19 +99,32 @@ public class PlayerThread extends Thread {
                     r.playerStringList = new PlayerList();
                     r.playerStringList.list.add(id);
                     activeRoom = r;
-                    BingoServer.mainLobby.roomMap.put(id, r);
+                    BingoServer.mainLobby.roomMap.put(r.id, r);
                     BingoServer.mainLobby.roomStringList.list.add(r.id);
                     BingoServer.mainLobby.playerStringList.list.remove(id);
                     PlayerDisconnected pd = new PlayerDisconnected();
                     pd.playerName = id;
                     sendToList(BingoServer.mainLobby.playerStringList, pd);
-                    for (String s : BingoServer.mainLobby.playerStringList.list) {
-                        PlayerThread p = BingoServer.playerThreadMap.get(s);
-                        p.os.writeObject(cr);
-                        p.os.flush();
-                    }
+                    sendToList(BingoServer.mainLobby.playerStringList, cr);
+                    //for (String s : BingoServer.mainLobby.playerStringList.list) {
+                   //     PlayerThread p = BingoServer.playerThreadMap.get(s);
+                   //     p.os.writeObject(cr);
+                   //     p.os.flush();
+                   // }
                 }
                 
+                else if (obj.getClass() == JoinRoom.class) {
+                    JoinRoom jr = (JoinRoom) obj;
+                    BingoServer.mainLobby.playerStringList.list.remove(id);
+                    PlayerDisconnected pd = new PlayerDisconnected();
+                    pd.playerName = id;
+                    sendToList(BingoServer.mainLobby.playerStringList, pd);
+                    System.out.println("jr.roomID adalah " + jr.roomID);
+                    Room r = BingoServer.mainLobby.roomMap.get(jr.roomID);
+                    System.out.println("r adalah " + r);
+                    r.playerStringList.list.add(id);
+                    System.out.println(r.playerStringList.list.size());
+                }
                 
             } catch (Exception ex) {
                 Logger.getLogger(PlayerThread.class.getName()).log(Level.SEVERE, null, ex);

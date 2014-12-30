@@ -17,6 +17,7 @@ public class ClientGlobals {
     public static String id;
     public static ObjectOutputStream os;
     public static ObjectInputStream is;
+    public static String activeRoomID;
 }
 
 class UserException extends Exception{

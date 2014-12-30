@@ -45,6 +45,7 @@ public class LobbyFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(840, 640));
+        setResizable(false);
 
         jListPlayer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jListPlayer.setModel(new javax.swing.AbstractListModel() {

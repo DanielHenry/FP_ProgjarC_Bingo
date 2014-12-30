@@ -56,6 +56,16 @@ public class ClientListenerThread extends Thread{
                     playerListModel.removeElement(pd.playerName);
                     lobbyFrame.setPlayerListModel(playerListModel);
                 }
+                
+                else if (o.getClass() == Chat.class) {
+                    Chat c = (Chat) o;
+                    lobbyFrame.addChat(c.sender + ": " + c.message);
+                }
+                
+                else if (o.getClass() == Whisper.class) {
+                    Whisper w = (Whisper) o;
+                    lobbyFrame.addChat("(Whisper)" + w.sender + ": " + w.message);
+                }
             }
         }
         catch (Exception ex) {

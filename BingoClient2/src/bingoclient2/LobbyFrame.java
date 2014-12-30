@@ -6,6 +6,9 @@
 package bingoclient2;
 
 import bingoserializables.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 public class LobbyFrame extends javax.swing.JFrame {
@@ -21,6 +24,10 @@ public class LobbyFrame extends javax.swing.JFrame {
     public void setRoomListModel (DefaultListModel l) {
         jListRoom.setModel(l);
         jListRoom.revalidate();
+    }
+    
+    public void addChat(String s) {
+        jTextArea1.setText(jTextArea1.getText() + "\n" + s);
     }
     
     public LobbyFrame() throws Exception {
@@ -46,7 +53,7 @@ public class LobbyFrame extends javax.swing.JFrame {
         jButtonJoinRoom = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jTextFiledWispName = new javax.swing.JTextField();
+        jTextFieldWispName = new javax.swing.JTextField();
         jTextFieldChat = new javax.swing.JTextField();
         jButtonSendChat = new javax.swing.JButton();
 
@@ -119,20 +126,26 @@ public class LobbyFrame extends javax.swing.JFrame {
             }
         });
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane3.setViewportView(jTextArea1);
 
-        jTextFiledWispName.setText("Whisper");
-        jTextFiledWispName.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldWispName.setText("Whisper");
+        jTextFieldWispName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFiledWispNameActionPerformed(evt);
+                jTextFieldWispNameActionPerformed(evt);
             }
         });
 
         jTextFieldChat.setText("Chat");
 
         jButtonSendChat.setText("Send");
+        jButtonSendChat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSendChatActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,7 +182,7 @@ public class LobbyFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextFiledWispName, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldWispName, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldChat, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,7 +209,7 @@ public class LobbyFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFiledWispName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldWispName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldChat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSendChat))
                 .addContainerGap(29, Short.MAX_VALUE))
@@ -229,9 +242,9 @@ public class LobbyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelPlayerMouseClicked
 
     
-    private void jTextFiledWispNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFiledWispNameActionPerformed
+    private void jTextFieldWispNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldWispNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFiledWispNameActionPerformed
+    }//GEN-LAST:event_jTextFieldWispNameActionPerformed
 
     private void jLabelPlayerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPlayerMousePressed
         // TODO add your handling code here:
@@ -242,6 +255,27 @@ public class LobbyFrame extends javax.swing.JFrame {
         jListRoom.clearSelection();
         jListRoom.repaint();
     }//GEN-LAST:event_jLabelRoomMouseClicked
+
+    private void jButtonSendChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendChatActionPerformed
+        if (jTextFieldWispName.getText().length() > 0) {
+            Whisper w = new Whisper(jTextFieldChat.getText(), ClientGlobals.id, jTextFieldWispName.getText());
+            try {
+                ClientGlobals.os.writeObject(w);
+                ClientGlobals.os.flush();
+            } catch (IOException ex) {
+                Logger.getLogger(LobbyFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            Chat c = new Chat(jTextFieldChat.getText(), ClientGlobals.id);
+            try {
+                ClientGlobals.os.writeObject(c);
+                ClientGlobals.os.flush();
+            } catch (IOException ex) {
+                Logger.getLogger(LobbyFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonSendChatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,6 +294,6 @@ public class LobbyFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextFieldChat;
-    private javax.swing.JTextField jTextFiledWispName;
+    private javax.swing.JTextField jTextFieldWispName;
     // End of variables declaration//GEN-END:variables
 }

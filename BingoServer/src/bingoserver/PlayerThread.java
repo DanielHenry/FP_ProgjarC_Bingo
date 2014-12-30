@@ -33,7 +33,7 @@ public class PlayerThread extends Thread {
                 BingoServer.playerThreadMap.get(id).os.flush();
             }
             catch (Exception e) {
-            
+                Logger.getLogger(PlayerThread.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }
@@ -77,6 +77,8 @@ public class PlayerThread extends Thread {
                     Whisper w = (Whisper) obj;
                     if (BingoServer.playerThreadMap.containsKey(w.receiver)) {
                         try {
+                            os.writeObject(w);
+                            os.flush();
                             BingoServer.playerThreadMap.get(w.receiver).os.writeObject(w);
                             BingoServer.playerThreadMap.get(w.receiver).os.flush();
                         }

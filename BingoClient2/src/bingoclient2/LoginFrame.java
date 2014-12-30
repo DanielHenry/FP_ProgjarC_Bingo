@@ -2,9 +2,11 @@
 package bingoclient2;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.ObjectOutputStream;
 
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -100,20 +102,20 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-        //try {
+        try {
             ClientGlobals.id = jTextFieldUsername.getText();
-            //Socket s = new Socket(ClientGlobals.id, 4545);
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new LobbyFrame().setVisible(true);
-                }
-            });
+            Socket s = new Socket(jTextFieldServer.getText(), 4545);
+            ClientGlobals.os = new ObjectOutputStream(s.getOutputStream());
+            ClientGlobals.is = new ObjectInputStream(s.getInputStream());
+            try {
+                new LobbyFrame().setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.setVisible(false);
-        //} catch (IOException ex) {
-        //    Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
-        //}
-        
-        
+        } catch (IOException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     public static void main(String args[]) {

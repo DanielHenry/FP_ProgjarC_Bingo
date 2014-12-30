@@ -13,6 +13,8 @@ public class BingoServer {
     public static Lobby mainLobby;
     
     public static void main(String[] args) {
+        playerThreadMap = new HashMap<>();
+        mainLobby = new Lobby();
         try {
             ConnectionListener cl = new ConnectionListener(4545);
             cl.start();

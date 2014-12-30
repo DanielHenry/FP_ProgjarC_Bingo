@@ -15,4 +15,8 @@ import java.util.ArrayList;
  */
 public class PlayerList implements Serializable {
     public ArrayList<String> list;
+    
+    public PlayerList() {
+        list = new ArrayList<>();
+    }
 }

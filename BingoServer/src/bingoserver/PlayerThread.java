@@ -45,6 +45,7 @@ public class PlayerThread extends Thread {
             try {
                 obj = is.readObject();
                 if (obj.getClass() == PlayerConnected.class) {
+                    System.out.println("Got PlayerConnected Object");
                     PlayerConnected pc = (PlayerConnected)obj;
                     //kalau baru pertama kali konek (bukan dari room)
                     if (id == null) {
@@ -53,6 +54,7 @@ public class PlayerThread extends Thread {
                     }
                     //kirim daftar player ke player yg baru konek
                     os.writeObject(BingoServer.mainLobby.playerStringList);
+                    os.flush();
                     //kirim objek playerconnected ke player-player lain di lobby
                     sendToList(BingoServer.mainLobby.playerStringList, pc);
                     BingoServer.mainLobby.playerStringList.list.add(id);
@@ -73,6 +75,7 @@ public class PlayerThread extends Thread {
                     if (BingoServer.playerThreadMap.containsKey(w.receiver)) {
                         try {
                             BingoServer.playerThreadMap.get(w.receiver).os.writeObject(w);
+                            BingoServer.playerThreadMap.get(w.receiver).os.flush();
                         }
                         catch (Exception ex) {
                             Logger.getLogger(PlayerThread.class.getName()).log(Level.SEVERE, null, ex);

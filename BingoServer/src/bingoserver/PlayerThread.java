@@ -46,18 +46,21 @@ public class PlayerThread extends Thread {
                 obj = is.readObject();
                 if (obj.getClass() == PlayerConnected.class) {
                     PlayerConnected pc = (PlayerConnected)obj;
+                    //kalau baru pertama kali konek (bukan dari room)
+                    if (id == null) {
+                        setId(pc.playerName);
+                        BingoServer.playerThreadMap.put(id, this);
+                    }
                     //kirim daftar player ke player yg baru konek
                     os.writeObject(BingoServer.mainLobby.playerStringList);
                     //kirim objek playerconnected ke player-player lain di lobby
                     sendToList(BingoServer.mainLobby.playerStringList, pc);
-                    setId(pc.playerName);
-                    BingoServer.playerThreadMap.put(id, this);
                     BingoServer.mainLobby.playerStringList.list.add(id);
                 }
                 
                 else if (obj.getClass() == Chat.class) {
                     Chat c = (Chat) obj;
-                    if (activeRoom == null || c.global) {
+                    if (activeRoom == null) {
                         sendToList(BingoServer.mainLobby.playerStringList, c);
                     }
                     else {
@@ -87,6 +90,7 @@ public class PlayerThread extends Thread {
                     r.playerStringList.list.add(id);
                     activeRoom = r;
                     BingoServer.mainLobby.roomList.add(r);
+                    BingoServer.mainLobby.playerStringList.list.remove(id);
                 }
                 
                 
@@ -98,10 +102,11 @@ public class PlayerThread extends Thread {
                     activeRoom.playerStringList.list.remove(id);
                     sendToList(activeRoom.playerStringList, pd);
                 }
-                BingoServer.mainLobby.playerStringList.list.remove(id);
-                sendToList(BingoServer.mainLobby.playerStringList, pd);
+                else {
+                    BingoServer.mainLobby.playerStringList.list.remove(id);
+                    sendToList(BingoServer.mainLobby.playerStringList, pd);
+                }
                 BingoServer.playerThreadMap.remove(id);
-                
                 break;
             }
         }

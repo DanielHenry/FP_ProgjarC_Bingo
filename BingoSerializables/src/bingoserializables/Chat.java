@@ -3,19 +3,18 @@ package bingoserializables;
 import java.io.Serializable;
 
 public class Chat implements Serializable {
-    public int roomID;
     public String message;
     public String sender;
-    
+    public boolean global;
     /**
      * 
      * @param i ID: id room
      * @param m Message: isi pesan
      * @param s Sender: pengirim
      */
-    public Chat(int i, String m, String s) {
-        roomID = i;
+    public Chat(String m, String s, boolean g) {
         message = m;
         sender = s;
+        global = g;
     }
 }

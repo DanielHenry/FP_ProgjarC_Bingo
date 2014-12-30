@@ -5,6 +5,8 @@
  */
 package DesignSource;
 
+import org.jdesktop.xswingx.PromptSupport;
+
 
 
 /**
@@ -62,13 +64,9 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabelUser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelUser.setText("Username");
 
-        jTextFieldUsername.setText("Username");
-
         jLabelServer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelServer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelServer.setText("Server");
-
-        jTextFieldServer.setText("Server");
 
         jButtonLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonLogin.setText("Link Start!");
@@ -122,6 +120,9 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        PromptSupport.setPrompt("Username", jTextFieldUsername);
+        PromptSupport.setPrompt("Server Address", jTextFieldServer);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

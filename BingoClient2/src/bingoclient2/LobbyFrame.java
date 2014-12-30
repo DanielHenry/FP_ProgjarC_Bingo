@@ -6,9 +6,12 @@
 package bingoclient2;
 
 import bingoserializables.*;
+import javax.swing.DefaultListModel;
 
 public class LobbyFrame extends javax.swing.JFrame {
 
+    
+    private DefaultListModel listModel;
     
     public LobbyFrame() throws Exception {
         initComponents();
@@ -16,7 +19,17 @@ public class LobbyFrame extends javax.swing.JFrame {
         ClientGlobals.os.writeObject(pc);
         ClientGlobals.os.flush();
         Object o = ClientGlobals.is.readObject();
-        System.out.println(o.getClass());
+        while (o.getClass() != PlayerList.class) {
+            o = ClientGlobals.is.readObject();
+        }
+        PlayerList pl = (PlayerList) o;
+        listModel = new DefaultListModel();
+        listModel.addElement(ClientGlobals.id);
+        for (String s : pl.list) {
+            listModel.addElement(s);
+        }
+        jListPlayer.setModel(listModel);
+        jListPlayer.revalidate();
     }
 
     @SuppressWarnings("unchecked")

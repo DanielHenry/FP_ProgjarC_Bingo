@@ -3,12 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Wik/Documents/NetBeansProjects/BingoSerializables/src/bingoserializables/Chat.java</file>
-            <file>file:/C:/Users/Wik/Documents/NetBeansProjects/BingoSerializables/src/bingoserializables/PlayerDisconnected.java</file>
-            <file>file:/C:/Users/Wik/Documents/NetBeansProjects/BingoSerializables/src/bingoserializables/PlayerConnected.java</file>
-            <file>file:/C:/Users/Wik/Documents/NetBeansProjects/BingoSerializables/src/bingoserializables/Whisper.java</file>
-            <file>file:/C:/Users/Wik/Documents/NetBeansProjects/BingoSerializables/src/bingoserializables/CreateRoom.java</file>
-            <file>file:/C:/Users/Wik/Documents/NetBeansProjects/BingoSerializables/src/bingoserializables/PlayerList.java</file>
+            <file>file:/C:/Users/Wik/Documents/GitHub/FP_ProgjarC_Bingo/BingoSerializables/src/bingoserializables/RoomList.java</file>
+            <file>file:/C:/Users/Wik/Documents/GitHub/FP_ProgjarC_Bingo/BingoSerializables/src/bingoserializables/CreateRoom.java</file>
         </group>
     </open-files>
 </project-private>

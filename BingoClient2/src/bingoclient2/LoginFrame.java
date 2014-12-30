@@ -108,11 +108,11 @@ public class LoginFrame extends javax.swing.JFrame {
             ClientGlobals.os = new ObjectOutputStream(s.getOutputStream());
             ClientGlobals.is = new ObjectInputStream(s.getInputStream());
             try {
-                new LobbyFrame().setVisible(true);
+                new LobbyFrame().setVisible(true);            
+                this.setVisible(false);
             } catch (Exception ex) {
                 Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.setVisible(false);
         } catch (IOException ex) {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

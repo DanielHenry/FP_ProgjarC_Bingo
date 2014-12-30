@@ -1,13 +1,15 @@
 package bingoserver;
 
 import bingoserializables.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Lobby {
     public PlayerList playerStringList;
-    public ArrayList<Room> roomList;
+    public HashMap<String, Room> roomMap;
+    public RoomList roomStringList;
     public Lobby() {
-        roomList = new ArrayList<>();
+        roomMap = new HashMap<>();
+        roomStringList = new RoomList();
         playerStringList = new PlayerList();
     }
 }

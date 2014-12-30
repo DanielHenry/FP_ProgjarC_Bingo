@@ -13,23 +13,23 @@ public class LobbyFrame extends javax.swing.JFrame {
     
     private DefaultListModel listModel;
     
+    public void setPlayerListModel (DefaultListModel l) {
+        jListPlayer.setModel(l);
+        jListPlayer.revalidate();
+    }
+    
+    public void setRoomListModel (DefaultListModel l) {
+        jListRoom.setModel(l);
+        jListRoom.revalidate();
+    }
+    
     public LobbyFrame() throws Exception {
         initComponents();
         PlayerConnected pc = new PlayerConnected(ClientGlobals.id);
         ClientGlobals.os.writeObject(pc);
         ClientGlobals.os.flush();
-        Object o = ClientGlobals.is.readObject();
-        while (o.getClass() != PlayerList.class) {
-            o = ClientGlobals.is.readObject();
-        }
-        PlayerList pl = (PlayerList) o;
-        listModel = new DefaultListModel();
-        listModel.addElement(ClientGlobals.id);
-        for (String s : pl.list) {
-            listModel.addElement(s);
-        }
-        jListPlayer.setModel(listModel);
-        jListPlayer.revalidate();
+        ClientListenerThread clt = new ClientListenerThread(this);
+        clt.start();
     }
 
     @SuppressWarnings("unchecked")

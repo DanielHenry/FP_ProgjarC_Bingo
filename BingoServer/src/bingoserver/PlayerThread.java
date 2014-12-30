@@ -55,6 +55,9 @@ public class PlayerThread extends Thread {
                     //kirim daftar player ke player yg baru konek
                     os.writeObject(BingoServer.mainLobby.playerStringList);
                     os.flush();
+                    //kirim daftar room
+                    os.writeObject(BingoServer.mainLobby.roomStringList);
+                    os.flush();
                     //kirim objek playerconnected ke player-player lain di lobby
                     sendToList(BingoServer.mainLobby.playerStringList, pc);
                     BingoServer.mainLobby.playerStringList.list.add(id);
@@ -86,14 +89,22 @@ public class PlayerThread extends Thread {
                 else if (obj.getClass() == CreateRoom.class) {
                     CreateRoom cr = new CreateRoom();
                     Room r = new Room();
+                    r.host = cr.host;
+                    r.id = cr.id;
                     r.bingoSize = cr.bingoSize;
                     r.maxPlayer = cr.maxPlayer;
                     r.normalMode = cr.normalMode;
                     r.playerStringList = new PlayerList();
                     r.playerStringList.list.add(id);
                     activeRoom = r;
-                    BingoServer.mainLobby.roomList.add(r);
+                    BingoServer.mainLobby.roomMap.put(id, r);
+                    BingoServer.mainLobby.roomStringList.list.add(id);
                     BingoServer.mainLobby.playerStringList.list.remove(id);
+                    for (String s : BingoServer.mainLobby.playerStringList.list) {
+                        PlayerThread p = BingoServer.playerThreadMap.get(s);
+                        p.os.writeObject(cr);
+                        p.os.flush();
+                    }
                 }
                 
                 

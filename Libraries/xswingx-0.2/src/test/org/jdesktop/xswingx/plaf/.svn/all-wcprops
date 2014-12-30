@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/201/trunk/xswingx/src/test/org/jdesktop/xswingx/plaf
+END
+BuddyTextFieldUITest.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/177/trunk/xswingx/src/test/org/jdesktop/xswingx/plaf/BuddyTextFieldUITest.java
+END
+PromptTextFieldUITest.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/201/trunk/xswingx/src/test/org/jdesktop/xswingx/plaf/PromptTextFieldUITest.java
+END
+PromptTextUITest.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/216/trunk/xswingx/src/test/org/jdesktop/xswingx/plaf/PromptTextUITest.java
+END
+PromptTextAreaUITest.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/201/trunk/xswingx/src/test/org/jdesktop/xswingx/plaf/PromptTextAreaUITest.java
+END
+xswingx.properties
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/155/trunk/xswingx/src/test/org/jdesktop/xswingx/plaf/xswingx.properties
+END
+BuddyLayoutAndBorderTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/216/trunk/xswingx/src/test/org/jdesktop/xswingx/plaf/BuddyLayoutAndBorderTest.java
+END
+xswingx_de.properties
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/155/trunk/xswingx/src/test/org/jdesktop/xswingx/plaf/xswingx_de.properties
+END
+TextUIWrapperTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/221/trunk/xswingx/src/test/org/jdesktop/xswingx/plaf/TextUIWrapperTest.java
+END
+AbstractUIChangeHandlerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/205/trunk/xswingx/src/test/org/jdesktop/xswingx/plaf/AbstractUIChangeHandlerTest.java
+END

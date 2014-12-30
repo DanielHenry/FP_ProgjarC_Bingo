@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/201/trunk/xswingx/src/java/org/jdesktop/xswingx/plaf
+END
+PromptTextAreaUI.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/183/trunk/xswingx/src/java/org/jdesktop/xswingx/plaf/PromptTextAreaUI.java
+END
+PromptTextUI.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/206/trunk/xswingx/src/java/org/jdesktop/xswingx/plaf/PromptTextUI.java
+END
+BuddyTextFieldUI.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/201/trunk/xswingx/src/java/org/jdesktop/xswingx/plaf/BuddyTextFieldUI.java
+END
+TextUIWrapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/221/trunk/xswingx/src/java/org/jdesktop/xswingx/plaf/TextUIWrapper.java
+END
+BuddyLayoutAndBorder.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/213/trunk/xswingx/src/java/org/jdesktop/xswingx/plaf/BuddyLayoutAndBorder.java
+END
+JXSearchFieldAddon.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/221/trunk/xswingx/src/java/org/jdesktop/xswingx/plaf/JXSearchFieldAddon.java
+END
+PromptTextFieldUI.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/207/trunk/xswingx/src/java/org/jdesktop/xswingx/plaf/PromptTextFieldUI.java
+END
+SearchFieldUI.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/221/trunk/xswingx/src/java/org/jdesktop/xswingx/plaf/SearchFieldUI.java
+END
+AbstractUIChangeHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/212/trunk/xswingx/src/java/org/jdesktop/xswingx/plaf/AbstractUIChangeHandler.java
+END

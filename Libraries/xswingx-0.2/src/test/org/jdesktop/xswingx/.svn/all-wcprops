@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/201/trunk/xswingx/src/test/org/jdesktop/xswingx
+END
+BuddySupportTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/183/trunk/xswingx/src/test/org/jdesktop/xswingx/BuddySupportTest.java
+END
+NativeSearchFieldSupportTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/208/trunk/xswingx/src/test/org/jdesktop/xswingx/NativeSearchFieldSupportTest.java
+END
+JXSearchFieldTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/221/trunk/xswingx/src/test/org/jdesktop/xswingx/JXSearchFieldTest.java
+END
+RecentSearchesTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/215/trunk/xswingx/src/test/org/jdesktop/xswingx/RecentSearchesTest.java
+END
+PromptSupportTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/211/trunk/xswingx/src/test/org/jdesktop/xswingx/PromptSupportTest.java
+END

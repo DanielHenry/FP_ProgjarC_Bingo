@@ -3,20 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package formnya;
-
+package bingoclient;
+import bingoserializables.*;
+import DesignSource.*;
 /**
  *
- * @author BO
+ * @author fikri
  */
-public class Formnya {
+public class BingoClient {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        gamesnya9 baru = new gamesnya9();
-        baru.setVisible(true);
+        // TODO code application logic here
+        LoginFrame log = new LoginFrame();
+        log.setVisible(true);
     }
     
 }

@@ -6,10 +6,12 @@
 package bingoclient2;
 
 import bingoserializables.*;
+import java.awt.Point;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import org.jdesktop.xswingx.PromptSupport;
 
 public class LobbyFrame extends javax.swing.JFrame {
 
@@ -27,7 +29,7 @@ public class LobbyFrame extends javax.swing.JFrame {
     }
     
     public void addChat(String s) {
-        jTextArea1.setText(jTextArea1.getText() + "\n" + s);
+        jTextAreaChat.setText(jTextAreaChat.getText() + "\n" + s);
     }
     
     public LobbyFrame() throws Exception {
@@ -52,7 +54,7 @@ public class LobbyFrame extends javax.swing.JFrame {
         jButtonCreateRoom = new javax.swing.JButton();
         jButtonJoinRoom = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaChat = new javax.swing.JTextArea();
         jTextFieldWispName = new javax.swing.JTextField();
         jTextFieldChat = new javax.swing.JTextField();
         jButtonSendChat = new javax.swing.JButton();
@@ -121,19 +123,22 @@ public class LobbyFrame extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        jTextAreaChat.setEditable(false);
+        jTextAreaChat.setColumns(20);
+        jTextAreaChat.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaChat);
 
-        jTextFieldWispName.setText("Whisper");
         jTextFieldWispName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldWispNameActionPerformed(evt);
             }
         });
 
-        jTextFieldChat.setText("Chat");
+        jTextFieldChat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldChatActionPerformed(evt);
+            }
+        });
 
         jButtonSendChat.setText("Send");
         jButtonSendChat.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +215,9 @@ public class LobbyFrame extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
+        PromptSupport.setPrompt("Global", jTextFieldWispName);
+        PromptSupport.setPrompt("Chat box", jTextFieldChat);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -270,7 +278,14 @@ public class LobbyFrame extends javax.swing.JFrame {
                 Logger.getLogger(LobbyFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        jScrollPane3.getViewport().setViewPosition(new Point(0, (jTextAreaChat.getLineCount()+1)*12));
+        jTextFieldChat.setText(null);
     }//GEN-LAST:event_jButtonSendChatActionPerformed
+
+    private void jTextFieldChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldChatActionPerformed
+        // TODO add your handling code here:
+        jButtonSendChatActionPerformed(evt);
+    }//GEN-LAST:event_jTextFieldChatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,7 +302,7 @@ public class LobbyFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextAreaChat;
     private javax.swing.JTextField jTextFieldChat;
     private javax.swing.JTextField jTextFieldWispName;
     // End of variables declaration//GEN-END:variables

@@ -222,7 +222,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jTextArea1">
+        <Component class="javax.swing.JTextArea" name="jTextAreaChat">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
@@ -232,17 +232,20 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="jTextFieldWispName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Whisper"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldWispNameActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="PromptSupport.setPrompt(&quot;Global&quot;, jTextFieldWispName);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldChat">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Chat"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldChatActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="PromptSupport.setPrompt(&quot;Chat box&quot;, jTextFieldChat);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSendChat">
       <Properties>

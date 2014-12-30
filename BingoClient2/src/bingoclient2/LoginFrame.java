@@ -58,6 +58,12 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabelServer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelServer.setText("Server");
 
+        jTextFieldServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldServerActionPerformed(evt);
+            }
+        });
+
         jButtonLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonLogin.setText("Link Start!");
         jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -158,6 +164,11 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButtonLoginActionPerformed
+
+    private void jTextFieldServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldServerActionPerformed
+        // TODO add your handling code here:
+        jButtonLoginActionPerformed(evt);
+    }//GEN-LAST:event_jTextFieldServerActionPerformed
 
     public static void main(String args[]) {
         /* Create and display the form */

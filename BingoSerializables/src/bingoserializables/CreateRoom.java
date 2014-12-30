@@ -1,6 +1,8 @@
 package bingoserializables;
 
-public class CreateRoom {
+import java.io.Serializable;
+
+public class CreateRoom implements Serializable{
     public String id;
     public String host;
     public int maxPlayer;

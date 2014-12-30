@@ -1,9 +1,9 @@
 package bingoserver;
 
 import bingoserializables.*;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Lobby {
     public PlayerList playerStringList;
-    public HashMap<Integer, Room> roomMap;
+    public ArrayList<Room> roomList;
 }

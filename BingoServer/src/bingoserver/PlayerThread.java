@@ -13,14 +13,29 @@ public class PlayerThread extends Thread {
     private String id;
     private ObjectOutputStream os;
     private ObjectInputStream is;
+    private Room activeRoom;
     
     public PlayerThread (ObjectOutputStream os, ObjectInputStream is) {
         this.os = os;
         this.is /*spartaaaaa*/ = is;
+        activeRoom = null;
+        id = null;
     }
     
     public void setId(String id) {
         this.id = id;
+    }
+    
+    private void sendToList(PlayerList p, Object o) {
+        for (String id : p.list) {
+            try {
+                BingoServer.playerThreadMap.get(id).os.writeObject(o);
+                BingoServer.playerThreadMap.get(id).os.flush();
+            }
+            catch (Exception e) {
+            
+            }
+        }
     }
     
     @Override
@@ -33,41 +48,20 @@ public class PlayerThread extends Thread {
                     PlayerConnected pc = (PlayerConnected)obj;
                     //kirim daftar player ke player yg baru konek
                     os.writeObject(BingoServer.mainLobby.playerStringList);
+                    //kirim objek playerconnected ke player-player lain di lobby
+                    sendToList(BingoServer.mainLobby.playerStringList, pc);
                     setId(pc.playerName);
                     BingoServer.playerThreadMap.put(id, this);
                     BingoServer.mainLobby.playerStringList.list.add(id);
-                    Set<Entry<String, PlayerThread>> entryset = BingoServer.playerThreadMap.entrySet();
-                    for (Entry<String, PlayerThread> e : entryset) 
-                    {
-                        //kirim objek playerconnected ke player2 lain
-                        e.getValue().os.writeObject(pc);
-                    }
                 }
                 
                 else if (obj.getClass() == Chat.class) {
                     Chat c = (Chat) obj;
-                    if (c.roomID == -1) {
-                        for (String id : BingoServer.mainLobby.playerStringList.list) {
-                            try {
-                                BingoServer.playerThreadMap.get(id).os.writeObject(c);
-                            }
-                            catch (Exception ex) {
-                                Logger.getLogger(PlayerThread.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+                    if (activeRoom == null || c.global) {
+                        sendToList(BingoServer.mainLobby.playerStringList, c);
                     }
                     else {
-                        Room r = BingoServer.mainLobby.roomMap.get(c.roomID);
-                        if (r != null) {
-                            for (String id : r.playerStringList.list) {
-                                try {
-                                    BingoServer.playerThreadMap.get(id).os.writeObject(c);
-                                }
-                                catch (Exception ex) {
-                                    Logger.getLogger(PlayerThread.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            }
-                        }
+                        sendToList(activeRoom.playerStringList, c);
                     }
                 }
                 
@@ -85,27 +79,29 @@ public class PlayerThread extends Thread {
                 
                 else if (obj.getClass() == CreateRoom.class) {
                     CreateRoom cr = new CreateRoom();
-                    /**
-                     * belum
-                     */
+                    Room r = new Room();
+                    r.bingoSize = cr.bingoSize;
+                    r.maxPlayer = cr.maxPlayer;
+                    r.normalMode = cr.normalMode;
+                    r.playerStringList = new PlayerList();
+                    r.playerStringList.list.add(id);
+                    activeRoom = r;
+                    BingoServer.mainLobby.roomList.add(r);
                 }
+                
                 
             } catch (Exception ex) {
                 Logger.getLogger(PlayerThread.class.getName()).log(Level.SEVERE, null, ex);
                 PlayerDisconnected pd = new PlayerDisconnected();
                 pd.playerName = id;
-                BingoServer.playerThreadMap.remove(id);
-                BingoServer.mainLobby.playerStringList.list.remove(id);
-                Set<Entry<String, PlayerThread>> entryset = BingoServer.playerThreadMap.entrySet();
-                for (Entry<String, PlayerThread> e : entryset) 
-                {
-                    try {
-                        //kirim objek playerdisconnected ke player2 lain
-                        e.getValue().os.writeObject(pd);
-                    } catch (IOException ex1) {
-                        Logger.getLogger(PlayerThread.class.getName()).log(Level.SEVERE, null, ex1);
-                    }
+                if (activeRoom != null) {
+                    activeRoom.playerStringList.list.remove(id);
+                    sendToList(activeRoom.playerStringList, pd);
                 }
+                BingoServer.mainLobby.playerStringList.list.remove(id);
+                sendToList(BingoServer.mainLobby.playerStringList, pd);
+                BingoServer.playerThreadMap.remove(id);
+                
                 break;
             }
         }

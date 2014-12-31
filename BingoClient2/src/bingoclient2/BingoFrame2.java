@@ -1,7 +1,13 @@
 
 package bingoclient2;
 
+import bingoserializables.Chat;
+import bingoserializables.Whisper;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -33,6 +39,10 @@ public class BingoFrame2 extends javax.swing.JFrame {
         playerListModel = l;
         jListPlayer.setModel(l);
         jListPlayer.revalidate();
+    }
+    
+    public void addChat(String s) {
+        jTextAreaChat.setText(jTextAreaChat.getText() + "\n" + s);
     }
     
     private class CustomButton extends JButton {
@@ -91,7 +101,7 @@ public class BingoFrame2 extends javax.swing.JFrame {
         jListPlayer = new javax.swing.JList();
         jLabelPlayer = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaChat = new javax.swing.JTextArea();
         jTextFiledWispName = new javax.swing.JTextField();
         jTextFieldChat = new javax.swing.JTextField();
         jButtonSendChat = new javax.swing.JButton();
@@ -130,20 +140,22 @@ public class BingoFrame2 extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        jTextAreaChat.setColumns(20);
+        jTextAreaChat.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaChat);
 
-        jTextFiledWispName.setText("Whisper");
         jTextFiledWispName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFiledWispNameActionPerformed(evt);
             }
         });
 
-        jTextFieldChat.setText("Chat");
-
         jButtonSendChat.setText("Send");
+        jButtonSendChat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSendChatActionPerformed(evt);
+            }
+        });
 
         jPanel1.setPreferredSize(new java.awt.Dimension(410, 410));
 
@@ -233,6 +245,29 @@ public class BingoFrame2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabelPlayerMousePressed
 
+    private void jButtonSendChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendChatActionPerformed
+        if (jTextFiledWispName.getText().length() > 0) {
+            Whisper w = new Whisper(jTextFieldChat.getText(), ClientGlobals.id, jTextFiledWispName.getText());
+            try {
+                ClientGlobals.os.writeObject(w);
+                ClientGlobals.os.flush();
+            } catch (IOException ex) {
+                Logger.getLogger(LobbyFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            Chat c = new Chat(jTextFieldChat.getText(), ClientGlobals.id);
+            try {
+                ClientGlobals.os.writeObject(c);
+                ClientGlobals.os.flush();
+            } catch (IOException ex) {
+                Logger.getLogger(LobbyFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        jScrollPane3.getViewport().setViewPosition(new Point(0, (jTextAreaChat.getLineCount()+1)*80));
+        jTextFieldChat.setText(null);
+    }//GEN-LAST:event_jButtonSendChatActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSendChat;
     private javax.swing.JLabel jLabelPlayer;
@@ -240,7 +275,7 @@ public class BingoFrame2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextAreaChat;
     private javax.swing.JTextField jTextFieldChat;
     private javax.swing.JTextField jTextFiledWispName;
     // End of variables declaration//GEN-END:variables

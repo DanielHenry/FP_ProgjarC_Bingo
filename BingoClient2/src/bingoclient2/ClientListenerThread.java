@@ -69,12 +69,23 @@ public class ClientListenerThread extends Thread{
                 
                 else if (o.getClass() == Chat.class) {
                     Chat c = (Chat) o;
-                    lobbyFrame.addChat(c.sender + ": " + c.message);
+                    
+                    if (ClientGlobals.gameFrame == null) {
+                        lobbyFrame.addChat(c.sender + ": " + c.message);
+                    }
+                    else {
+                        ClientGlobals.gameFrame.addChat(c.sender + ": " + c.message);
+                    }
                 }
                 
                 else if (o.getClass() == Whisper.class) {
                     Whisper w = (Whisper) o;
-                    lobbyFrame.addChat("(Whisper)" + w.sender + ": " + w.message);
+                    if (ClientGlobals.gameFrame == null) {
+                       lobbyFrame.addChat("(Whisper)" + w.sender + ": " + w.message);
+                    }
+                    else {
+                       ClientGlobals.gameFrame.addChat("(Whisper)" + w.sender + ": " + w.message);
+                    }
                 }
                 
                 else if (o.getClass() == CreateRoom.class) {

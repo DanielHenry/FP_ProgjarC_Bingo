@@ -134,6 +134,17 @@ public class PlayerThread extends Thread {
                     activeRoom = r;
                 }
                 
+                else if (obj.getClass() == PlayerReady.class) {
+                    PlayerReady pr = (PlayerReady) obj;
+                    Room r = BingoServer.mainLobby.roomMap.get(pr.roomID);
+                    r.ready++;
+                    sendToList(r.playerStringList, new Chat("Player " + pr.playerID + " is ready!", "GAME"));
+                    if (r.ready > 1 && r.ready == r.playerStringList.list.size()) {
+                        r.state = 1;
+                        //tentukan urutan main di sini
+                    }
+                }
+                
             } catch (Exception ex) {
                 Logger.getLogger(PlayerThread.class.getName()).log(Level.SEVERE, null, ex);
                 PlayerDisconnected pd = new PlayerDisconnected();

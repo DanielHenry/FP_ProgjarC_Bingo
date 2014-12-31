@@ -171,6 +171,7 @@ public class CreateRoomF extends javax.swing.JFrame {
             lm.addElement(ClientGlobals.id);
             bf2.setPlayerListModel(lm);
             bf2.setVisible(true);
+            ClientGlobals.activeRoomID = cr.id;
             ClientGlobals.gameFrame = bf2;
         } catch (IOException ex) {
             Logger.getLogger(CreateRoomF.class.getName()).log(Level.SEVERE, null, ex);

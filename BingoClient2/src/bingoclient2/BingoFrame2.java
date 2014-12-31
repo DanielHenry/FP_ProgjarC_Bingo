@@ -3,6 +3,7 @@ package bingoclient2;
 
 import bingoserializables.Chat;
 import bingoserializables.Whisper;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.ListModel;
-
+import bingoserializables.*;
 
 public class BingoFrame2 extends javax.swing.JFrame {
 
@@ -26,14 +27,80 @@ public class BingoFrame2 extends javax.swing.JFrame {
     private Boolean isPlaying;
     private Boolean isActive;
     private CustomButton[][] buttons;
-    private JButton[][] jButtons;
     private ArrayList<CustomButton> buttonsByNumber;
     private int bingosize;
+    
+    
+    public void activate() {
+        isActive = true;
+    }
+    
+    public boolean updateBoard(int num) {
+        CustomButton b = buttonsByNumber.get(num-1);
+        b.setBackground(Color.GREEN);
+        cek[b.getRow()][b.getCol()] = true;
+        
+        int bingo = 0;
+        boolean apakahTercoretSatuLine;
+        
+        //cek semua horizontal
+        for (int i=0;i<bingosize;i++)
+        {
+            apakahTercoretSatuLine = true;
+            for (int j=0;j<bingosize;j++)
+            {   
+                if (cek[i][j]==false)
+                {
+                   apakahTercoretSatuLine = false;
+                    break;
+                }
+            }
+            if (apakahTercoretSatuLine==true) bingo++;
+        }
+        
+        for (int i=0;i<bingosize;i++)
+        {
+            apakahTercoretSatuLine = true;
+            for (int j=0;j<bingosize;j++)
+            {   
+                if (cek[j][i]==false)
+                {
+                   apakahTercoretSatuLine = false;
+                    break;
+                }
+            }
+            if (apakahTercoretSatuLine==true) bingo++;
+        }
+        
+        apakahTercoretSatuLine = true;
+        for (int i=0;i<bingosize;i++)
+        {   
+            if (cek[i][i]==false)
+            {
+               apakahTercoretSatuLine = false;
+                break;
+            }
+        }
+        if (apakahTercoretSatuLine==true) bingo++;
+        
+        apakahTercoretSatuLine = true;
+        for (int i=0;i<bingosize;i++)
+        {   
+            if (cek[bingosize-1-i][i]==false)
+            {
+               apakahTercoretSatuLine = false;
+                break;
+            }
+        }
+        if (apakahTercoretSatuLine==true) bingo++;
+        
+        if (bingo==bingosize) return true;
+        else return false;
+    }
     
     public ListModel getPlayerListModel() {
         return playerListModel;
     }
-    
     
     public void removePlayer(String s) {
         playerListModel.removeElement(s);
@@ -98,10 +165,18 @@ public class BingoFrame2 extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             CustomButton cb = (CustomButton)e.getSource();
+            if (isPlaying) {
+                System.out.println("ISPLAYING");
+            }
             if (!isPlaying) {
-                if (putNum <= bingosize * bingosize) {
+                if (putNum < bingosize * bingosize) {
                     putNum = cb.setNum(putNum) ? putNum + 1 : putNum;
                     buttonsByNumber.add(cb);
+                }
+                else if (putNum == bingosize * bingosize) {
+                    putNum = cb.setNum(putNum) ? putNum + 1 : putNum;
+                    buttonsByNumber.add(cb);
+                    jButtonReady.setEnabled(true);
                 }
             }
             else if (isActive) {
@@ -132,6 +207,7 @@ public class BingoFrame2 extends javax.swing.JFrame {
         isActive = false;
         putNum = 1;
         buttonsByNumber = new ArrayList();
+        jButtonReady.setEnabled(false);
     }
 
     /**
@@ -152,6 +228,7 @@ public class BingoFrame2 extends javax.swing.JFrame {
         jTextFieldChat = new javax.swing.JTextField();
         jButtonSendChat = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jButtonReady = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(840, 640));
@@ -216,6 +293,13 @@ public class BingoFrame2 extends javax.swing.JFrame {
             .addGap(0, 410, Short.MAX_VALUE)
         );
 
+        jButtonReady.setText("Ready!");
+        jButtonReady.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReadyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -227,6 +311,8 @@ public class BingoFrame2 extends javax.swing.JFrame {
                         .addGap(117, 117, 117)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonReady)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,11 +336,13 @@ public class BingoFrame2 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelPlayer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButtonReady)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelPlayer)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -314,7 +402,18 @@ public class BingoFrame2 extends javax.swing.JFrame {
         jTextFieldChat.setText(null);
     }//GEN-LAST:event_jButtonSendChatActionPerformed
 
+    private void jButtonReadyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReadyActionPerformed
+        PlayerReady pr = new PlayerReady(ClientGlobals.id, ClientGlobals.activeRoomID);
+        try {
+            ClientGlobals.os.writeObject(pr);
+            ClientGlobals.os.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(BingoFrame2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonReadyActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonReady;
     private javax.swing.JButton jButtonSendChat;
     private javax.swing.JLabel jLabelPlayer;
     private javax.swing.JList jListPlayer;

@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -26,6 +27,7 @@ public class BingoFrame2 extends javax.swing.JFrame {
     private Boolean isActive;
     private CustomButton[][] buttons;
     private JButton[][] jButtons;
+    private ArrayList<CustomButton> buttonsByNumber;
     private int bingosize;
     
     public ListModel getPlayerListModel() {
@@ -87,6 +89,9 @@ public class BingoFrame2 extends javax.swing.JFrame {
             else 
                 return false;
         }
+        public int getNum() {
+            return num;
+        }
     }
     
     private class ButtonListener implements ActionListener {
@@ -96,7 +101,7 @@ public class BingoFrame2 extends javax.swing.JFrame {
             if (!isPlaying) {
                 if (putNum <= bingosize * bingosize) {
                     putNum = cb.setNum(putNum) ? putNum + 1 : putNum;
-                    
+                    buttonsByNumber.add(cb);
                 }
             }
             else if (isActive) {

@@ -42,6 +42,7 @@ public class BingoFrame2 extends javax.swing.JFrame {
     }
     
     public void addChat(String s) {
+        System.out.println("(GameRoom) addChat " + s);
         jTextAreaChat.setText(jTextAreaChat.getText() + "\n" + s);
     }
     

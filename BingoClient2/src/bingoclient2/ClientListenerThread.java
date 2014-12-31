@@ -15,6 +15,8 @@ public class ClientListenerThread extends Thread{
     LobbyFrame lobbyFrame;
     public ClientListenerThread (LobbyFrame lf) {
         lobbyFrame = lf;
+        playerListModel = new DefaultListModel();
+        roomListModel = new DefaultListModel();
     }
     
     @Override

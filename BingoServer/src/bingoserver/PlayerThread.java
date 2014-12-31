@@ -1,13 +1,11 @@
 package bingoserver;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import bingoserializables.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class PlayerThread extends Thread {
     private String id;
@@ -56,8 +54,17 @@ public class PlayerThread extends Thread {
                     os.writeObject(BingoServer.mainLobby.playerStringList);
                     os.flush();
                     //kirim daftar room
-                    os.writeObject(BingoServer.mainLobby.roomStringList);
-                    os.flush();
+                    CreateRoom cr;
+                    for (Entry<String, Room> es : BingoServer.mainLobby.roomMap.entrySet()) {
+                        cr = new CreateRoom();
+                        cr.id = es.getValue().id;
+                        cr.host = es.getValue().host;
+                        cr.bingoSize = es.getValue().bingoSize;
+                        cr.normalMode = es.getValue().normalMode;
+                        cr.maxPlayer = es.getValue().maxPlayer;
+                        os.writeObject(cr);
+                        os.flush();
+                    }
                     //kirim objek playerconnected ke player-player lain di lobby
                     sendToList(BingoServer.mainLobby.playerStringList, pc);
                     BingoServer.mainLobby.playerStringList.list.add(id);
@@ -69,6 +76,7 @@ public class PlayerThread extends Thread {
                         sendToList(BingoServer.mainLobby.playerStringList, c);
                     }
                     else {
+                        System.out.println("activeRoom: " + activeRoom.playerStringList.list.size());
                         sendToList(activeRoom.playerStringList, c);
                     }
                 }
@@ -123,7 +131,7 @@ public class PlayerThread extends Thread {
                     os.writeObject(r.playerStringList);
                     sendToList(r.playerStringList, jr);
                     r.playerStringList.list.add(id);
-                    
+                    activeRoom = r;
                 }
                 
             } catch (Exception ex) {

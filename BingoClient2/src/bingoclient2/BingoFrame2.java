@@ -5,6 +5,8 @@ import bingoserializables.Chat;
 import bingoserializables.Whisper;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,10 +20,18 @@ public class BingoFrame2 extends javax.swing.JFrame {
 
     
     private DefaultListModel playerListModel;
+    private Boolean[][] cek;
+    private int putNum;
+    private Boolean isPlaying;
+    private Boolean isActive;
+    private CustomButton[][] buttons;
+    private JButton[][] jButtons;
+    private int bingosize;
     
     public ListModel getPlayerListModel() {
         return playerListModel;
     }
+    
     
     public void removePlayer(String s) {
         playerListModel.removeElement(s);
@@ -49,6 +59,7 @@ public class BingoFrame2 extends javax.swing.JFrame {
     private class CustomButton extends JButton {
         private final int row;
         private final int col;
+        private int num;
         public int getRow() {
             return row;
         }
@@ -59,17 +70,41 @@ public class BingoFrame2 extends javax.swing.JFrame {
             super(s);
             row = i;
             col = j;
+            num = -1;
         }
         public CustomButton(int i, int j) {
             super();
             row = i;
             col = j;
+            num = -1;
+        }
+        public Boolean setNum(int n) {
+            if (num == -1) {
+                num = n;
+                this.setText(String.valueOf(n));
+                return true;
+            }
+            else 
+                return false;
         }
     }
     
-    CustomButton[][] buttons;
-    JButton[][] jButtons;
-    int bingosize;
+    private class ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CustomButton cb = (CustomButton)e.getSource();
+            if (!isPlaying) {
+                if (putNum <= bingosize * bingosize) {
+                    putNum = cb.setNum(putNum) ? putNum + 1 : putNum;
+                    
+                }
+            }
+            else if (isActive) {
+            
+            }
+        }
+    }
+            
     public BingoFrame2(int bsize) {
         initComponents();
         bingosize = bsize;
@@ -79,14 +114,18 @@ public class BingoFrame2 extends javax.swing.JFrame {
             for (int j=0; j<7; j++) {
                 if (i < bsize && j < bsize) {
                     buttons[i][j] = new CustomButton("-", i, j);
+                    buttons[i][j].addActionListener(new ButtonListener());
                     jPanel1.add(buttons[i][j]);
                 }
                 else {
                     jPanel1.add(new JLabel("."));
                 }
             }
-            
         }
+        cek = new Boolean[bsize][bsize];
+        isPlaying = false;
+        isActive = false;
+        putNum = 1;
     }
 
     /**

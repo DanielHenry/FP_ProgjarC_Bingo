@@ -131,6 +131,7 @@ public class BingoFrame2 extends javax.swing.JFrame {
         isPlaying = false;
         isActive = false;
         putNum = 1;
+        buttonsByNumber = new ArrayList();
     }
 
     /**

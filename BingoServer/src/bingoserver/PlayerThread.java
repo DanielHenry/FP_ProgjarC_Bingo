@@ -119,11 +119,11 @@ public class PlayerThread extends Thread {
                     PlayerDisconnected pd = new PlayerDisconnected();
                     pd.playerName = id;
                     sendToList(BingoServer.mainLobby.playerStringList, pd);
-                    System.out.println("jr.roomID adalah " + jr.roomID);
                     Room r = BingoServer.mainLobby.roomMap.get(jr.roomID);
-                    System.out.println("r adalah " + r);
+                    os.writeObject(r.playerStringList);
+                    sendToList(r.playerStringList, jr);
                     r.playerStringList.list.add(id);
-                    System.out.println(r.playerStringList.list.size());
+                    
                 }
                 
             } catch (Exception ex) {

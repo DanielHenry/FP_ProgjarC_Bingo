@@ -5,6 +5,7 @@ import bingoserializables.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -164,6 +165,13 @@ public class CreateRoomF extends javax.swing.JFrame {
             ClientGlobals.os.writeObject(cr);
             ClientGlobals.os.flush();
             this.setVisible(false);
+            lobbyFrame.setVisible(false);
+            BingoFrame2 bf2 = new BingoFrame2(cr.bingoSize);
+            DefaultListModel lm = new DefaultListModel();
+            lm.addElement(ClientGlobals.id);
+            bf2.setPlayerListModel(lm);
+            bf2.setVisible(true);
+            ClientGlobals.gameFrame = bf2;
         } catch (IOException ex) {
             Logger.getLogger(CreateRoomF.class.getName()).log(Level.SEVERE, null, ex);
         }

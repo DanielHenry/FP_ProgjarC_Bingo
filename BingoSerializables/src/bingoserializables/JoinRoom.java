@@ -13,7 +13,9 @@ import java.io.Serializable;
  */
 public class JoinRoom implements Serializable {
     public String roomID;
-    public JoinRoom(String rID) {
+    public String playerID;
+    public JoinRoom(String rID, String pID) {
         roomID = rID;
+        playerID = pID;
     }
 }

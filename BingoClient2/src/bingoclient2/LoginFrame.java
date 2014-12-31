@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 import org.jdesktop.xswingx.PromptSupport;
 
 public class LoginFrame extends javax.swing.JFrame {
@@ -178,6 +179,8 @@ public class LoginFrame extends javax.swing.JFrame {
                 new LoginFrame().setVisible(true);
             }
         });
+        ClientGlobals.gameFrame = null;
+        ClientGlobals.roomMap = new HashMap();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

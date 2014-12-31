@@ -9,8 +9,12 @@ public class Room {
     public int maxPlayer;
     public boolean normalMode;
     public int bingoSize;
+    public int state;
+    public int ready;
     
     public Room() {
         playerStringList = new PlayerList();
+        state = 0;
+        ready = 0;
     }
 }

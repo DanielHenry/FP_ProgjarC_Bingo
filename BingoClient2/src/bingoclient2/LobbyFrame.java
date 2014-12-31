@@ -14,9 +14,6 @@ import javax.swing.DefaultListModel;
 import org.jdesktop.xswingx.PromptSupport;
 
 public class LobbyFrame extends javax.swing.JFrame {
-
-    
-    private DefaultListModel listModel;
     
     public void setPlayerListModel (DefaultListModel l) {
         jListPlayer.setModel(l);
@@ -226,14 +223,18 @@ public class LobbyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jListPlayerMousePressed
 
     private void jButtonJoinRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonJoinRoomActionPerformed
-        JoinRoom jr = new JoinRoom(jListRoom.getSelectedValue().toString());
+        JoinRoom jr = new JoinRoom(jListRoom.getSelectedValue().toString(), ClientGlobals.id);
+        ClientGlobals.activeRoomID = jListRoom.getSelectedValue().toString();
+        Room r = ClientGlobals.roomMap.get(jr.roomID);
+        ClientGlobals.gameFrame = new BingoFrame2(r.bingoSize);
+        ClientGlobals.gameFrame.setVisible(true);
+        this.setVisible(false);
         try {
             ClientGlobals.os.writeObject(jr);
             ClientGlobals.os.flush();
         } catch (IOException ex) {
             Logger.getLogger(LobbyFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ClientGlobals.activeRoomID = jListRoom.getSelectedValue().toString();
     }//GEN-LAST:event_jButtonJoinRoomActionPerformed
 
     private void jButtonCreateRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateRoomActionPerformed

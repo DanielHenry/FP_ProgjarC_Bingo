@@ -7,6 +7,7 @@ package bingoclient2;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
 
 /**
@@ -18,6 +19,8 @@ public class ClientGlobals {
     public static ObjectOutputStream os;
     public static ObjectInputStream is;
     public static String activeRoomID;
+    public static BingoFrame2 gameFrame;
+    public static HashMap<String, Room> roomMap;
 }
 
 class UserException extends Exception{

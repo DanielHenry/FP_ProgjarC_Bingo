@@ -28,12 +28,22 @@ public class ClientListenerThread extends Thread{
                 System.out.println(o.getClass());
                 if (o.getClass() == PlayerList.class) {
                     PlayerList pl = (PlayerList) o;
-                    playerListModel = new DefaultListModel();
-                    playerListModel.addElement(ClientGlobals.id);
-                    for (String s : pl.list) {
-                        playerListModel.addElement(s);
+                    if (ClientGlobals.gameFrame == null) {
+                        playerListModel = new DefaultListModel();
+                        playerListModel.addElement(ClientGlobals.id);
+                        for (String s : pl.list) {
+                            playerListModel.addElement(s);
+                        }
+                        lobbyFrame.setPlayerListModel(playerListModel);
                     }
-                    lobbyFrame.setPlayerListModel(playerListModel);
+                    else {
+                        DefaultListModel roomPlayerModel = new DefaultListModel();
+                        roomPlayerModel.addElement(ClientGlobals.id);
+                        for (String s : pl.list) {
+                            roomPlayerModel.addElement(s);
+                        }
+                        ClientGlobals.gameFrame.setPlayerListModel(roomPlayerModel);
+                    }
                 }
                 
                 else if (o.getClass() == RoomList.class) {
@@ -70,7 +80,13 @@ public class ClientListenerThread extends Thread{
                 else if (o.getClass() == CreateRoom.class) {
                     CreateRoom cr = (CreateRoom) o;
                     roomListModel.addElement(cr.id);
+                    ClientGlobals.roomMap.put(cr.id, new Room(cr.normalMode, cr.bingoSize));
                     lobbyFrame.setRoomListModel(roomListModel);
+                }
+                
+                else if (o.getClass() == JoinRoom.class && ClientGlobals.gameFrame != null) {
+                    JoinRoom jr = (JoinRoom) o;
+                    ClientGlobals.gameFrame.addPlayer(jr.playerID);
                 }
             }
         }
